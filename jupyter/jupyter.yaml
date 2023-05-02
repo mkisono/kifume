@@ -23,7 +23,8 @@ metadata:
 spec:
   containers:
     - name: jupyter2
-      image: jupyter/minimal-notebook
+      image: jupyter:local
+      imagePullPolicy: Never
       ports:
       - containerPort: 8888
         protocol: TCP
