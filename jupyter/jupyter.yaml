@@ -7,8 +7,8 @@ metadata:
     app: jupyter2
 spec:
   ports:
-  - name: http
-    port: 8888
+    - name: http
+      port: 8888
   selector:
     app: jupyter2
   type: LoadBalancer
@@ -26,14 +26,25 @@ spec:
       image: jupyter:local
       imagePullPolicy: Never
       ports:
-      - containerPort: 8888
-        protocol: TCP
-        name: http
+        - containerPort: 8888
+          protocol: TCP
+          name: http
       volumeMounts:
-      - mountPath: /jupyter
-        name: jupyter2
-
+        - mountPath: /jupyter
+          name: jupyter2
+        - mountPath: /jupyter/certs
+          name: http-certs-public
+          readOnly: true
+        - mountPath: /jupyter/elastic
+          name: elastic-user
+          readOnly: true
   volumes:
-  - name: jupyter2
-    persistentVolumeClaim:
-      claimName: jupyter-pvc
+    - name: jupyter2
+      persistentVolumeClaim:
+        claimName: jupyter-pvc
+    - name: http-certs-public
+      secret:
+        secretName: quickstart-es-http-certs-public
+    - name: elastic-user
+      secret:
+        secretName: quickstart-es-elastic-user
