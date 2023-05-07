@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: onedrive
+  namespace: kifume
+  labels:
+    app: onedrive
+spec:
+  containers:
+    - name: onedrive
+      image: onedrive:local
+      imagePullPolicy: Never
+      env:
+        - name: ONEDRIVE_UID
+          value: '1000'
+        - name: ONEDRIVE_GID
+          value: '1000'
+        - name: ONEDRIVE_GID
+          value: '1000'
+        - name: ONEDRIVE_SINGLE_DIRECTORY
+          value: 'Documents/Backgammon'
+        - name: ONEDRIVE_AUTHRESPONSE
+          valueFrom:
+            secretKeyRef:
+              name: onedrive
+              key: onedrive_authresponse
+      volumeMounts:
+        - mountPath: /onedrive/conf
+          name: onedrive-conf
+        - mountPath: /onedrive/data
+          name: onedrive-data
+  volumes:
+    - name: onedrive-conf
+      persistentVolumeClaim:
+        claimName: onedrive-conf-pvc
+    - name: onedrive-data
+      persistentVolumeClaim:
+        claimName: onedrive-data-pvc
