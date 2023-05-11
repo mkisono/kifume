@@ -15,8 +15,6 @@ spec:
           value: '1000'
         - name: ONEDRIVE_GID
           value: '1000'
-        - name: ONEDRIVE_GID
-          value: '1000'
         - name: ONEDRIVE_SINGLE_DIRECTORY
           value: 'Documents/Backgammon'
         - name: ONEDRIVE_AUTHRESPONSE

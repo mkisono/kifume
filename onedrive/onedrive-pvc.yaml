@@ -1,3 +1,14 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  namespace: kifume
+  name: onedrive-hostpath
+provisioner: microk8s.io/hostpath
+reclaimPolicy: Retain
+parameters:
+  pvDir: /home/mkisono/OneDrive
+volumeBindingMode: WaitForFirstConsumer
+---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -11,7 +22,7 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: microk8s-hostpath
+  storageClassName: onedrive-hostpath
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -26,4 +37,4 @@ spec:
   resources:
     requests:
       storage: 10Gi
-  storageClassName: microk8s-hostpath
+  storageClassName: onedrive-hostpath
